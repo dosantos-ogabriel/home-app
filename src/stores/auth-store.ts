@@ -6,8 +6,10 @@ import { auth } from 'boot/firebase';
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(null);
+  const loading = ref(true);
 
   const setUser = (value: User | null) => {
+    if (loading.value) loading.value = false;
     user.value = value;
   };
   const signIn = async (email: string, password: string) => {
@@ -21,7 +23,7 @@ export const useAuthStore = defineStore('auth', () => {
   return {
     user,
     setUser,
-
+    loading,
     signIn,
   };
 });

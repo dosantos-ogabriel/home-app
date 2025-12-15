@@ -2,11 +2,19 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          :disable="!user"
+          @click="toggleLeftDrawer"
+        />
 
-        <q-toolbar-title> Quasar App </q-toolbar-title>
+        <q-toolbar-title> Casa Santos </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <!-- <div>Quasar v{{ $q.version }}</div> -->
       </q-toolbar>
     </q-header>
 
@@ -19,14 +27,26 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <router-view v-if="user" />
+
+      <q-page v-else class="flex column items-center justify-center q-pa-md">
+        <q-spinner-facebook v-if="loading" size="5em" color="primary"></q-spinner-facebook>
+        <LoginCard v-else />
+      </q-page>
     </q-page-container>
   </q-layout>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useAuthStore } from 'stores/auth-store';
+
+import LoginCard from 'components/LoginCard.vue';
 import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink.vue';
+
+const authStore = useAuthStore();
+const { user, loading } = storeToRefs(authStore);
 
 const linksList: EssentialLinkProps[] = [
   {
