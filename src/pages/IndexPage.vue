@@ -1,13 +1,25 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    {{ user!.email }}
+  <q-page class="q-pa-md">
+    <HomeSectionCard
+      v-for="section in sections"
+      :key="section.title"
+      :title="section.title"
+      :description="section.description"
+      :icon="section.icon"
+      :link="section.link"
+    />
   </q-page>
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from 'stores/auth-store';
-import { storeToRefs } from 'pinia';
+import HomeSectionCard from 'components/HomeSectionCard.vue';
 
-const authStore = useAuthStore();
-const { user } = storeToRefs(authStore);
+const sections = [
+  {
+    title: 'Filmes',
+    description: 'Lista de filmes assistidos',
+    icon: 'movie',
+    link: '/movies',
+  },
+];
 </script>
