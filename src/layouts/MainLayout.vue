@@ -14,7 +14,7 @@
 
         <q-toolbar-title> Casa Santos </q-toolbar-title>
 
-        <!-- <div>Quasar v{{ $q.version }}</div> -->
+        <ProfileMenu />
       </q-toolbar>
     </q-header>
 
@@ -44,6 +44,7 @@ import { useAuthStore } from 'stores/auth-store';
 
 import LoginCard from 'components/LoginCard.vue';
 import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink.vue';
+import ProfileMenu from 'components/ProfileMenu.vue';
 
 const authStore = useAuthStore();
 const { user, loading } = storeToRefs(authStore);
